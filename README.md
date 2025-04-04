@@ -73,3 +73,7 @@ This alias is configured in the root tsconfig.json and respected by both fronten
 - This setup is designed to be minimal and beginner-friendly.
 - You can extend it with additional packages like Jest, Prisma, Zod, etc.
 - Consider using Docker or environment-based .env configs for production-ready deployments.
+
+## Medium Post
+
+A step-by-step blog post is available on [Medium](https://medium.com/@serdar.ulutas/a-simple-monorepo-setup-with-next-js-and-express-js-4bbe0e99b259)
