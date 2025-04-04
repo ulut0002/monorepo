@@ -26,7 +26,7 @@ npm install -g pnpm
 Then install everything:
 
 ```
-pnpm install
+pnpm -r install
 
 ```
 
