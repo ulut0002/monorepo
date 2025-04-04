@@ -1,0 +1,23 @@
+{
+  "name": "turbo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^2.4.4",
+    "typescript": "^5.3.3",
+    "prettier": "^3.2.5"
+  },
+  "packageManager": "pnpm@10.7.1"
+}
