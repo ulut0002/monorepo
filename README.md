@@ -27,12 +27,11 @@ Then install everything:
 
 ```
 pnpm -r install
-
 ```
 
 ### 3. Running the Apps
 
-Start the backend (Express.js)
+Start the backend (Express.js) from the root project directory
 
 ```
 pnpm --filter backend dev
@@ -40,7 +39,7 @@ pnpm --filter backend dev
 
 Backend will run at: [http://localhost:4000/api/health](http://localhost:4000/api/health "http://localhost:4000/api/health")
 
-Start the frontend (Next.js)
+Start the frontend (Next.js) from the root project directory
 
 ```
 pnpm --filter frontend dev
