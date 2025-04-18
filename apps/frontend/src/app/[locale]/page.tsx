@@ -13,7 +13,8 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         setUser(data.user);
-      });
+      })
+      .catch((err) => {});
   }, []);
 
   return (
