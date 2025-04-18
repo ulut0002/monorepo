@@ -1,0 +1,9 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "ProjectStructure": {
+    "title": "Frontend + Backend + Shared!"
+  }
+}
