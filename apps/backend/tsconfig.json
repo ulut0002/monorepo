@@ -1,13 +1,12 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "outDir": "dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
-  },
-  "include": ["src"]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "dist"
+	},
+	"include": ["src"],
+	"references": [
+		{
+			"path": "../../packages/shared"
+		}
+	]
 }

@@ -1,14 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "module": "ESNext",
-    "target": "ES2020",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "strict": true
-  },
-  "include": ["src"]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"module": "ESNext",
+		"declaration": true,
+		"declarationMap": true
+	},
+	"include": ["src"]
 }
