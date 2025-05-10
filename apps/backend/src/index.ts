@@ -10,18 +10,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 
-// Emulate __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Get NODE_ENV and decide which .env file to use
+import router from "./router";
 const env = process.env.NODE_ENV || "development";
 const envPath = path.resolve(__dirname, `../../../.env.${env}`);
-
-// Load the .env file (e.g., .env.development)
 dotenv.config({ path: envPath });
 
-// Optionally fallback to root .env if specific one doesn’t exist
+// fallback
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 const app = express();
@@ -68,6 +62,4 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", user });
 });
 
-// app.listen(4000, () => {
-//   console.log("Backend running at http://localhost:4000");
-// });
+app.use("/", router());

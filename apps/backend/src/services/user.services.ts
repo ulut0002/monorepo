@@ -36,7 +36,7 @@ const updateUserById = async (id: string, values: Record<string, any>) => {
   return await UserModel.findByIdAndUpdate(id, values);
 };
 
-export default {
+export {
   getUsers,
   getUserByEmail,
   getUserBySessionToken,

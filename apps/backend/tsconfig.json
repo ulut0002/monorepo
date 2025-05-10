@@ -1,12 +1,12 @@
+// apps/backend/tsconfig.json
 {
-	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"outDir": "dist"
-	},
-	"include": ["src"],
-	"references": [
-		{
-			"path": "../../packages/shared"
-		}
-	]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../../", // ← monorepo root
+    "module": "commonjs",
+    "outDir": "dist",
+    "emitDeclarationOnly": false // you almost certainly want real JS in dist
+  },
+  "include": ["src"],
+  "references": [{ "path": "../../packages/shared" }]
 }
