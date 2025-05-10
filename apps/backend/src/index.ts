@@ -1,9 +1,51 @@
 import express from "express";
 import cors from "cors";
 import { User } from "@shared/types";
+import * as http from "http";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import compression from "compression";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Emulate __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Get NODE_ENV and decide which .env file to use
+const env = process.env.NODE_ENV || "development";
+const envPath = path.resolve(__dirname, `../../../.env.${env}`);
+
+// Load the .env file (e.g., .env.development)
+dotenv.config({ path: envPath });
+
+// Optionally fallback to root .env if specific one doesn’t exist
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+  })
+);
+
+app.use(compression());
+app.use(cookieParser());
+app.use(bodyParser.json());
+
+const server = http.createServer(app);
+
+const PORT = process.env.BACKEND_PORT;
+if (!PORT) {
+  throw new Error("BACKEND_PORT is not defined in .env");
+}
+
+const MONGODB_URI = process.env.BACKEND_MONGODB_URI;
+
+server.listen(PORT, () => {
+  console.log(` Backend running at http://localhost:${PORT}`);
+});
 
 app.get("/api/health", (_req, res) => {
   const user: User = {
@@ -14,6 +56,6 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", user });
 });
 
-app.listen(4000, () => {
-  console.log("Backend running at http://localhost:4000");
-});
+// app.listen(4000, () => {
+//   console.log("Backend running at http://localhost:4000");
+// });
