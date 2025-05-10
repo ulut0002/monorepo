@@ -5,18 +5,18 @@ import * as http from "http";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
-import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
 import mongoose from "mongoose";
-
 import router from "./router";
-const env = process.env.NODE_ENV || "development";
-const envPath = path.resolve(__dirname, `../../../.env.${env}`);
-dotenv.config({ path: envPath });
+import { UserType } from "./types/types";
+import envConfig from "./config/env.config";
 
-// fallback
-dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+declare global {
+  namespace Express {
+    interface Request {
+      identity?: UserType;
+    }
+  }
+}
 
 const app = express();
 app.use(
@@ -36,21 +36,19 @@ if (!PORT) {
   throw new Error("BACKEND_PORT is not defined in .env");
 }
 
-const MONGODB_URI = process.env.BACKEND_MONGODB_URI || "";
-
-if (MONGODB_URI) {
+if (envConfig.BACKEND_MONGODB_URI) {
   mongoose.Promise = Promise;
-  mongoose.connect(MONGODB_URI);
+  mongoose.connect(envConfig.BACKEND_MONGODB_URI);
   mongoose.connection.on("error", (err: Error) => {
-    console.log(err);
+    console.error(err);
   });
   mongoose.connection.on("connected", () => {
-    console.log("MongoDB connected");
+    console.info("MongoDB connected");
   });
 }
 
 server.listen(PORT, () => {
-  console.log(`Backend running at http://localhost:${PORT}`);
+  console.info(`Backend running at http://localhost:${PORT}`);
 });
 
 app.get("/api/health", (_req, res) => {

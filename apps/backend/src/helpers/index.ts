@@ -1,12 +1,13 @@
 import crypto from "crypto";
-
-const SECRET_KEY = process.env.BACKEND_SECRET_KEY;
+import envConfig from "../config/env.config";
 
 const random = () => {
   return crypto.randomBytes(128).toString("base64");
 };
 
 const authentication = (salt: string, password: string) => {
+  const SECRET_KEY = envConfig.BACKEND_SECRET_KEY;
+
   if (!SECRET_KEY) {
     throw new Error("SECRET_KEY is not defined");
   }

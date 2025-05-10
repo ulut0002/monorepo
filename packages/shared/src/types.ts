@@ -35,4 +35,18 @@ type UsernameValidationConfig = {
   noConsecutiveSymbols?: boolean;
 };
 
-export { NormalizeOptions, PasswordValidationConfig, UsernameValidationConfig };
+type EnvConfig = Partial<{
+  BACKEND_PORT: string;
+  BACKEND_MONGODB_URI: string;
+  BACKEND_SECRET_KEY: string;
+
+  COOKIE_NAME: string;
+  COOKIE_DOMAIN: string;
+}>;
+
+export {
+  NormalizeOptions,
+  PasswordValidationConfig,
+  UsernameValidationConfig,
+  EnvConfig,
+};

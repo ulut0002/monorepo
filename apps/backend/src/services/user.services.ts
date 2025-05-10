@@ -5,9 +5,8 @@ const getUsers = async () => {
   return users;
 };
 
-const getUserByEmail = async (email: string) => {
-  const user = await UserModel.findOne({ email });
-  return user;
+const getUserByEmail = (email: string, selectFields?: string) => {
+  return UserModel.findOne({ email }).select(selectFields || "");
 };
 
 const getUserBySessionToken = async (sessionToken: string) => {
