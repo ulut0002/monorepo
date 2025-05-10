@@ -8,6 +8,7 @@ import compression from "compression";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import mongoose from "mongoose";
 
 // Emulate __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -41,10 +42,21 @@ if (!PORT) {
   throw new Error("BACKEND_PORT is not defined in .env");
 }
 
-const MONGODB_URI = process.env.BACKEND_MONGODB_URI;
+const MONGODB_URI = process.env.BACKEND_MONGODB_URI || "";
+
+if (MONGODB_URI) {
+  mongoose.Promise = Promise;
+  mongoose.connect(MONGODB_URI);
+  mongoose.connection.on("error", (err: Error) => {
+    console.log(err);
+  });
+  mongoose.connection.on("connected", () => {
+    console.log("MongoDB connected");
+  });
+}
 
 server.listen(PORT, () => {
-  console.log(` Backend running at http://localhost:${PORT}`);
+  console.log(`Backend running at http://localhost:${PORT}`);
 });
 
 app.get("/api/health", (_req, res) => {
