@@ -1,14 +1,16 @@
 import dotenv from "dotenv";
 import path from "path";
-import { EnvConfig } from "@shared/types";
+import { EnvConfig } from "../types";
+
+// Absolute path to repo root
+const root = path.resolve(__dirname, "../../../../");
 
 const env = process.env.NODE_ENV || "development";
-const envPath = path.resolve(__dirname, `../../../../.env.${env}`);
-dotenv.config({ path: envPath });
+const mainEnvPath = path.join(root, `.env.${env}`);
+const fallbackEnvPath = path.join(root, ".env");
 
-// fallback
-dotenv.config({ path: path.resolve(__dirname, "../../../../.env") });
-dotenv.config();
+dotenv.config({ path: fallbackEnvPath }); // fallback first (lowest priority)
+dotenv.config({ path: mainEnvPath }); // main env next (overrides fallback)
 
 const envConfig: EnvConfig = {
   BACKEND_PORT: process.env.BACKEND_PORT || "",

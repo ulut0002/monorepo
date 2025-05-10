@@ -8,7 +8,7 @@ import compression from "compression";
 import mongoose from "mongoose";
 import router from "./router";
 import { UserType } from "./types/types";
-import envConfig from "./config/env.config";
+import envConfig from "@/packages/shared/src/config/env.config";
 
 declare global {
   namespace Express {
@@ -49,15 +49,6 @@ if (envConfig.BACKEND_MONGODB_URI) {
 
 server.listen(PORT, () => {
   console.info(`Backend running at http://localhost:${PORT}`);
-});
-
-app.get("/api/health", (_req, res) => {
-  const user: User = {
-    id: "1",
-    name: "John",
-    email: "john@example.com",
-  };
-  res.json({ status: "ok", user });
 });
 
 app.use("/", router());

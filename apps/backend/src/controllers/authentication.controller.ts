@@ -8,7 +8,7 @@ import {
 } from "@shared/utils/validators";
 import { createUser, getUserByEmail } from "../services/user.services";
 import { authentication, random } from "../helpers/index";
-import envConfig from "../config/env.config";
+import envConfig from "@/packages/shared/src/config/env.config";
 
 const register = async (
   req: Request,

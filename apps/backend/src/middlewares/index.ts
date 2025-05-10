@@ -1,7 +1,7 @@
 import express from "express";
 import { get, merge } from "lodash";
 import { getUserBySessionToken } from "../services/user.services";
-import envConfig from "../config/env.config";
+import envConfig from "@/packages/shared/src/config/env.config";
 
 const isAuthenticated = async (
   req: express.Request,

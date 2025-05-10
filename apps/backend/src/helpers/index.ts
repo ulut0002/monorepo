@@ -1,6 +1,5 @@
+import envConfig from "@/packages/shared/src/config/env.config";
 import crypto from "crypto";
-import envConfig from "../config/env.config";
-
 const random = () => {
   return crypto.randomBytes(128).toString("base64");
 };

@@ -9,12 +9,11 @@ export default function Home() {
   const t = useT("ProjectStructure"); // simpler and readable
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/health")
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/test/user`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data.user);
-      })
-      .catch((err) => {});
+      });
   }, []);
 
   return (

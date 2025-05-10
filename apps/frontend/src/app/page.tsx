@@ -7,7 +7,7 @@ export default function Home() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/health")
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/test/user`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data.user);
