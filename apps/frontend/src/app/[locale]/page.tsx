@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useT } from "../../hooks/useT"; // or "@/utils/i18n" etc.
 import { User } from "@shared/types";
+import LoginForm from "../components/auth/LoginForm";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -17,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className='p-8 text-center'>
+    <main className='p-8 text-center flex flex-col items-center'>
       <h1 className='text-4xl font-bold text-blue-600'>{t("title")}</h1>
       {user ? (
         <p className='mt-4 text-xl'>
@@ -26,6 +27,10 @@ export default function Home() {
       ) : (
         <p className='mt-4 text-gray-500'>Loading user...</p>
       )}
+
+      <div className='mt-8 w-full max-w-md'>
+        <LoginForm />
+      </div>
     </main>
   );
 }

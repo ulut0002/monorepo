@@ -1,21 +1,35 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "noEmit": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    // "moduleResolution": "bundler",
+    "incremental": true,
+    "types": [
+      "react",
+      "react-dom"
+    ],
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "incremental": true
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "references": [
     {
       "path": "../../packages/shared"
