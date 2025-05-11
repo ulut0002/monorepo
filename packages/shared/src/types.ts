@@ -3,6 +3,11 @@ export interface User {
   name: string;
   email: string;
 }
+interface INewUser {
+  email: string;
+  password: string;
+  username: string;
+}
 /**
  * Options for normalizing email addresses.
  */
@@ -26,6 +31,7 @@ type PasswordValidationConfig = {
  * Configuration for validating usernames.
  */
 type UsernameValidationConfig = {
+  required?: boolean;
   minLength?: number;
   maxLength?: number;
   allowUnderscore?: boolean;
@@ -36,12 +42,13 @@ type UsernameValidationConfig = {
 };
 
 type EnvConfig = Partial<{
-  BACKEND_PORT: string;
-  BACKEND_MONGODB_URI: string;
-  BACKEND_SECRET_KEY: string;
+  BACKEND_HOST: string; // e.g. localhost
+  BACKEND_PORT: string; // e.g. 3000
+  BACKEND_MONGODB_URI: string; // e.g. mongodb://localhost:27017/mydb
+  BACKEND_SECRET_KEY: string; // e.g. a long random string for JWT signing
 
-  COOKIE_NAME: string;
-  COOKIE_DOMAIN: string;
+  COOKIE_NAME: string; // e.g. sessionId
+  COOKIE_DOMAIN: string; // e.g. localhost
 }>;
 
 export {
@@ -49,4 +56,5 @@ export {
   PasswordValidationConfig,
   UsernameValidationConfig,
   EnvConfig,
+  INewUser,
 };

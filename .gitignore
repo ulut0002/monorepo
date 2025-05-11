@@ -44,6 +44,7 @@ Thumbs.db
 coverage/
 **/coverage/
 
+
 # Optional: Prettier / lint cache
 .prettier-cache/
 .eslintcache
@@ -51,3 +52,6 @@ coverage/
 # Optional: output from Turbo repo caching
 .cache/
 .turbo/
+
+
+pnpm-lock.yaml

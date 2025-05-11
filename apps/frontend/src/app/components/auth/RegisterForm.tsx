@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import axios from "axios";
 import { Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,24 +11,30 @@ export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const pathname = usePathname();
   const loginHref = `/auth/login`;
 
   const handleRegister = async () => {
     setError("");
+    setLoading(true);
 
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password, username }),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      await axios.post("/api/auth/register", {
+        email,
+        password,
+        username,
+      });
 
-    const data = await res.json();
-    if (!res.ok) {
-      setError(data.error || "Registration failed");
-    } else {
-      window.location.href = loginHref;
+      window.location.href = "/";
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || "Registration failed");
+      } else {
+        setError("Unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,9 +74,14 @@ export default function RegisterForm() {
         </div>
         <button
           onClick={handleRegister}
-          className='w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700'
+          disabled={loading}
+          className={`w-full py-2 rounded-md text-white ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-green-600 hover:bg-green-700"
+          }`}
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
         <p className='text-center text-sm mt-4'>
           Already have an account?{" "}

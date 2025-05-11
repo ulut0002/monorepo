@@ -29,3 +29,10 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function GET(req: NextRequest) {
+  return NextResponse.json({
+    message: "Register endpoint is live",
+    timestamp: new Date().toISOString(),
+  });
+}
