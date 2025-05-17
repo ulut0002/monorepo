@@ -1,14 +1,14 @@
-import { EnvConfig, INewUser } from "../../types";
-import { loadEnvConfig } from "../../utils/config";
+import { INewUser } from "../../types";
+import { getBackendUrl, loadEnvConfig } from "../../utils/config";
 
 async function registerUser(
   payload: INewUser
 ): Promise<{ success: boolean; error?: string }> {
   const config = loadEnvConfig();
 
-  console.log("Config", config);
+  const url = getBackendUrl();
 
-  if (!config.BACKEND_HOST) {
+  if (!config.BACKEND_URL) {
     return { success: false, error: "Missing BACKEND_HOST in config" };
   }
   if (!config.BACKEND_PORT) {
@@ -16,9 +16,6 @@ async function registerUser(
   }
 
   try {
-    // Example: send to real DB or external service here
-    console.log("Registering user", payload);
-
     // Simulate success
     return { success: true };
   } catch (error: any) {
@@ -26,4 +23,8 @@ async function registerUser(
   }
 }
 
-export { registerUser };
+async function validateUser() {
+  const config = getBackendUrl();
+}
+
+export { registerUser, validateUser };

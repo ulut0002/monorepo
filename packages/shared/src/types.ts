@@ -42,9 +42,9 @@ type UsernameValidationConfig = {
 };
 
 type EnvConfig = Partial<{
-  BACKEND_HOST: string; // e.g. localhost
+  BACKEND_URL: string; // e.g. localhost
   BACKEND_PORT: string; // e.g. 3000
-  BACKEND_MONGODB_URI: string; // e.g. mongodb://localhost:27017/mydb
+  BACKEND_MONGODB_URI: string; // e.g. mongodb://localhost:27017/dbName
   BACKEND_SECRET_KEY: string; // e.g. a long random string for JWT signing
 
   COOKIE_NAME: string; // e.g. sessionId

@@ -6,7 +6,11 @@ import {
   isValidUsername,
   normalizeEmail,
 } from "@shared/utils/validators";
-import { createUser, getUserByEmail } from "../services/user.services";
+import {
+  createUser,
+  getUserByEmail,
+  getUserBySessionToken,
+} from "../services/user.services";
 import { authentication, random } from "../helpers/index";
 import envConfig from "@/packages/shared/src/config/env.config";
 
@@ -121,4 +125,39 @@ const login = async (
   }
 };
 
-export { register, login };
+const validate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const cookieName = envConfig.COOKIE_NAME || "auth_token";
+    const sessionToken = req.cookies?.[cookieName];
+
+    if (!sessionToken) {
+      res.status(401).json({ success: false, message: "Not authenticated" });
+      return;
+    }
+
+    const user = await getUserBySessionToken(sessionToken);
+
+    if (!user) {
+      res.status(401).json({ success: false, message: "Invalid session" });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+      },
+    });
+  } catch (err) {
+    console.error("Validation error:", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export { register, login, validate };
