@@ -9,19 +9,13 @@ import {
   findUserByUsername,
 } from "../services/user.services";
 import bcrypt from "bcryptjs";
-import {
-  ExtractJwt,
-  StrategyOptions,
-  Strategy as JwtStrategy,
-} from "passport-jwt";
+import { StrategyOptions, Strategy as JwtStrategy } from "passport-jwt";
 import { PassportStatic } from "passport";
 import {
   createErrorResponse,
   createValidationErrorCollector,
 } from "../lib/error";
-import { MessageCodes } from "@shared/constants/message.codes";
-import { MessageTexts } from "@shared/constants/message.texts";
-import { log } from "console";
+import { MessageCodes, MessageTexts } from "@shared/constants";
 
 const configureJwtStrategy = (passport: PassportStatic) => {
   const secret = envConfig.BACKEND_JWT_SECRET_KEY;
@@ -32,7 +26,12 @@ const configureJwtStrategy = (passport: PassportStatic) => {
   }
 
   const opts: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: (req: Request) => {
+      if (req && req.cookies) {
+        return req.cookies.token;
+      }
+      return null;
+    },
     secretOrKey: secret,
   };
 
@@ -130,7 +129,16 @@ const register = async (req: Request, res: Response): Promise<void> => {
       jwtSecretKey,
       { expiresIn: "1h" }
     );
-    res.status(201).json({ token });
+    // res.status(201).json({ token });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 3600000, // 1 hour
+      })
+      .status(201) // or 200
+      .json({ message: "Authentication successful" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -189,7 +197,6 @@ const login = async (req: Request, res: Response): Promise<void> => {
       // return;
       errors.add(MessageTexts[MessageCodes.AUTH_FAILED]);
     }
-    console.log("has errors", errors.hasErrors());
 
     if (errors.hasErrors()) {
       res.status(401).json(
@@ -209,11 +216,34 @@ const login = async (req: Request, res: Response): Promise<void> => {
       { expiresIn: "1h" }
     );
 
-    res.json({ token });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 3600000,
+      })
+      .status(200)
+      .json({ message: "Authentication successful" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-export { register, login, configureJwtStrategy };
+const logout = (req: Request, res: Response): void => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully." });
+};
+
+const me = async (req: Request, res: Response): Promise<void> => {
+  const user = req.user;
+  if (!user) {
+    res.status(401).json({ message: "Not authenticated" });
+    return;
+  }
+  const { password, ...safeUser } = (user as any).toObject();
+  res.json({ user: safeUser });
+};
+
+export { register, login, configureJwtStrategy, logout, me };
