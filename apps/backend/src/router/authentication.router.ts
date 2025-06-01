@@ -8,29 +8,29 @@ const authRouter: Router = express.Router();
 
 /**
  * @route   POST /auth/login
- * @desc    Authenticates a user and sets the JWT cookie
+ * @desc    Logs in a user and issues a JWT as an HttpOnly cookie.
  * @access  Public
  */
 authRouter.post("/login", login);
 
 /**
  * @route   POST /auth/register
- * @desc    Registers a new user and sets the JWT cookie
+ * @desc    Creates a new user account and issues a JWT as an HttpOnly cookie.
  * @access  Public
  */
 authRouter.post("/register", register);
 
 /**
  * @route   GET /auth/me
- * @desc    Returns currently authenticated user's info
- * @access  Protected (requires JWT cookie)
+ * @desc    Returns the authenticated user's public profile.
+ * @access  Protected - requires a valid JWT in the cookie.
  */
 authRouter.get("/me", passport.authenticate("jwt", { session: false }), me);
 
 /**
  * @route   POST /auth/logout
- * @desc    Clears the JWT cookie (logs user out)
- * @access  Protected (optional, since it just clears a cookie)
+ * @desc    Logs the user out by clearing the JWT cookie.
+ * @access  Optional protection — works even if the user is already logged out.
  */
 authRouter.post("/logout", logout);
 

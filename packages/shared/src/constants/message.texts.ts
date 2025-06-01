@@ -1,5 +1,9 @@
 import { MessageCodes } from "./message.codes";
 
+/**
+ * Human-readable messages mapped to machine-readable error codes.
+ * Used in API responses to provide consistent, user-friendly error messages.
+ */
 export const MessageTexts: Record<MessageCodes, string> = {
   [MessageCodes.VALIDATION_ERROR]: "Some input fields are invalid.",
   [MessageCodes.MISSING_REQUIRED_FIELD]: "A required field is missing.",

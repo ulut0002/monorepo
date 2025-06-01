@@ -1,19 +1,24 @@
+/**
+ * Partial environment config used throughout the backend app.
+ * All values are read from `.env` files via dotenv and loaded into this shape.
+ */
 type EnvConfig = Partial<{
-  BACKEND_URL: string; // e.g. localhost
-  BACKEND_PORT: string; // e.g. 3000
-  BACKEND_MONGODB_URI: string; // e.g. mongodb://localhost:27017/dbName
-  BACKEND_JWT_SECRET_KEY: string; // e.g. a long random string for JWT signing
+  BACKEND_URL: string; // Base URL for the backend server (e.g. http://localhost)
+  BACKEND_PORT: string; // Port number backend listens on (e.g. 3000)
+  BACKEND_MONGODB_URI: string; // MongoDB connection string
+  BACKEND_JWT_SECRET_KEY: string; // Secret key used for signing JWTs
 }>;
 
 /**
- * Options for normalizing email addresses.
+ * Options for email normalization (e.g., used when checking for uniqueness).
  */
 type NormalizeOptions = {
-  stripPlusAliases?: boolean; // Applies to supported providers only
+  stripPlusAliases?: boolean; // Removes "+alias" from Gmail-style addresses when true
 };
 
 /**
- * Configuration for validating passwords.
+ * Configuration rules for password validation.
+ * Useful for enforcing password strength policies during registration.
  */
 type PasswordValidationConfig = {
   minLength?: number;
@@ -25,7 +30,8 @@ type PasswordValidationConfig = {
 };
 
 /**
- * Configuration for validating usernames.
+ * Configuration rules for username validation.
+ * Use this to enforce constraints like length, allowed symbols, and formatting.
  */
 type UsernameValidationConfig = {
   required?: boolean;
@@ -34,8 +40,8 @@ type UsernameValidationConfig = {
   allowUnderscore?: boolean;
   allowDot?: boolean;
   allowHyphen?: boolean;
-  noLeadingTrailingSymbols?: boolean;
-  noConsecutiveSymbols?: boolean;
+  noLeadingTrailingSymbols?: boolean; // Disallow symbols at beginning/end
+  noConsecutiveSymbols?: boolean; // Disallow repeating special characters
 };
 
 export {

@@ -7,7 +7,8 @@ import {
 } from "@shared/types/config.types";
 
 /**
- * Validates an email address using a basic RFC-like regex.
+ * Validates if an email is in a generally acceptable format.
+ * This uses a simplified RFC-style regex.
  */
 function isValidEmail(email: string): boolean {
   email = email.trim().toLowerCase();
@@ -17,7 +18,14 @@ function isValidEmail(email: string): boolean {
 }
 
 /**
- * Validates a password based on the provided configuration.
+ * Validates password strength using configurable rules.
+ *
+ * @param password - The input password string.
+ * @param config - Optional rules for password complexity.
+ *
+ * Rules include:
+ * - min/max length
+ * - uppercase / lowercase / number / symbol requirements
  */
 function isValidPassword(
   password: string,
@@ -42,7 +50,15 @@ function isValidPassword(
 }
 
 /**
- * Validates a username based on common industry rules and optional configuration.
+ * Validates a username string with flexibility over allowed characters and formatting rules.
+ *
+ * @param username - The input username.
+ * @param config - Optional customization for formatting constraints.
+ *
+ * Options include:
+ * - allowed characters (dot, underscore, hyphen)
+ * - minimum and maximum length
+ * - disallow leading/trailing/consecutive symbols
  */
 function isValidUsername(
   username: string,
@@ -63,20 +79,20 @@ function isValidUsername(
     return false;
   }
 
-  // Build allowed character set dynamically
+  // Dynamically build regex based on allowed characters
   let allowedChars = "a-zA-Z0-9";
   if (allowUnderscore) allowedChars += "_";
   if (allowDot) allowedChars += ".";
   if (allowHyphen) allowedChars += "-";
 
-  // General character validation
+  // Regex to validate allowed characters
   const validCharsRegex = new RegExp(`^[${allowedChars}]+$`);
   if (!validCharsRegex.test(username)) return false;
 
-  // Check for leading/trailing symbols
+  // Optionally disallow usernames starting or ending with symbols
   if (noLeadingTrailingSymbols && /^[._-]|[._-]$/.test(username)) return false;
 
-  // Check for consecutive symbols
+  // Optionally disallow consecutive symbols like "..", "__"
   if (noConsecutiveSymbols && /[._-]{2,}/.test(username)) return false;
 
   return true;
@@ -85,10 +101,14 @@ function isValidUsername(
 // ---------- NORMALIZER ----------
 
 /**
- * Normalizes an email address by:
- * - Lowercasing
- * - Removing dots for Gmail
- * - Stripping + aliases for supported providers
+ * Normalizes an email address for consistent user identity matching.
+ *
+ * - Lowercases the address
+ * - For Gmail: strips dots and +aliases
+ * - For supported providers: strips +aliases
+ * - Returns null if not a valid email
+ *
+ * Use this to deduplicate user signups across email aliasing tricks.
  */
 function normalizeEmail(
   email: string,
@@ -107,11 +127,11 @@ function normalizeEmail(
   switch (domain) {
     case "gmail.com":
     case "googlemail.com":
-      local = local.replace(/\./g, ""); // remove dots
+      local = local.replace(/\./g, ""); // Remove all dots from Gmail username
       if (stripPlus) {
-        local = local.split("+")[0]; // strip plus alias
+        local = local.split("+")[0]; // Remove alias
       }
-      return `${local}@gmail.com`; // unify googlemail -> gmail
+      return `${local}@gmail.com`; // Normalize domain to gmail.com
 
     case "outlook.com":
     case "hotmail.com":
@@ -122,10 +142,10 @@ function normalizeEmail(
       if (stripPlus) {
         local = local.split("+")[0];
       }
-      return `${local}@${domain}`;
+      return `${local}@${domain}`; // Preserve original domain
 
     default:
-      // Unknown provider: lowercase only
+      // For unknown providers, only lowercase is enforced
       return `${local}@${domain}`;
   }
 }
