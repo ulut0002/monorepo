@@ -1,11 +1,13 @@
+import { getBackendUrl } from "@shared/config/env.utils";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
+  const backendHost = getBackendUrl();
 
   try {
-    const response = await fetch("http://localhost:4000/auth/login", {
+    const response = await fetch(`${backendHost}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
