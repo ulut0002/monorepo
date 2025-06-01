@@ -1,19 +1,51 @@
 import express from "express";
 import cors from "cors";
-import { User } from "@shared/types";
+import compression from "compression";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import * as http from "http";
+import { envConfig } from "@shared/config/env.config";
+import passport from "passport";
+import { configureJwtStrategy } from "./controllers";
+import { authRouter, rootRouter } from "./router";
+import { ensureBody } from "./middleware";
+import mongoose from "mongoose";
+
+const PORT = envConfig.BACKEND_PORT;
+if (!PORT || PORT === "") {
+  throw new Error("BACKEND_PORT is not defined in the environment variables.");
+}
+configureJwtStrategy(passport);
 
 const app = express();
-app.use(cors());
+app.use(express.json());
+app.use(
+  cors({
+    credentials: true,
+  })
+);
+app.use(compression());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(ensureBody);
 
-app.get("/api/health", (_req, res) => {
-  const user: User = {
-    id: "1",
-    name: "John",
-    email: "john@example.com",
-  };
-  res.json({ status: "ok", user });
+if (envConfig.BACKEND_MONGODB_URI) {
+  mongoose.Promise = Promise;
+  mongoose.connect(envConfig.BACKEND_MONGODB_URI);
+  mongoose.connection.on("error", (err: Error) => {
+    console.error(err);
+  });
+  mongoose.connection.on("connected", () => {
+    console.info("MongoDB connected");
+  });
+}
+
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
+  console.info(`Backend running at http://localhost:${PORT}`);
 });
 
-app.listen(4000, () => {
-  console.log("Backend running at http://localhost:4000");
-});
+app.use("/", rootRouter);
+app.use("/auth", authRouter);
