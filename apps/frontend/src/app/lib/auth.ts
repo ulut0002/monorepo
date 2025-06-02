@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { loadEnvConfig } from "@shared/config/env.utils";
 
 /**
  * Extracts and verifies the JWT token stored in the user's cookies.
@@ -10,6 +11,7 @@ import jwt from "jsonwebtoken";
  * @returns The decoded user object if the token is valid, or null if not.
  */
 export async function getSessionUser() {
+  const config = loadEnvConfig();
   // Retrieve the cookie store (Next.js server-side cookie API)
   const cookieStore = await cookies();
 
@@ -21,7 +23,7 @@ export async function getSessionUser() {
 
   try {
     // Verify and decode the token using the backend's secret key
-    return jwt.verify(token, process.env.BACKEND_JWT_SECRET_KEY!);
+    return jwt.verify(token, config.BACKEND_JWT_SECRET_KEY!);
   } catch {
     // Token is invalid or expired
     return null;

@@ -4,7 +4,7 @@
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export default function LogoutButton() {
+export default function LogoutButton({ onLogout }: { onLogout?: () => void }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -14,7 +14,10 @@ export default function LogoutButton() {
         method: "POST",
       });
 
-      // Redirect to login or home
+      // Notify parent
+      onLogout?.();
+
+      // Navigate away or refresh
       startTransition(() => {
         router.push("/login");
       });

@@ -2,22 +2,31 @@
 
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getBackendUrl } from "@shared/config/env.utils";
 
-// This API route handles logging the user out by clearing the auth token cookie.
-// It sets the "token" cookie to an empty value and expires it immediately.
+// This route clears the token cookie and optionally notifies the backend logout endpoint.
 
 export async function POST() {
-  // Get the cookie store for the current request
   const cookieStore = await cookies();
 
-  // Overwrite the token cookie with an empty value and expire it
+  // Clear the cookie on the client
   cookieStore.set({
     name: "token",
     value: "",
-    maxAge: 0, // Cookie is removed immediately
-    path: "/", // Make sure the cookie is cleared for the root path
+    maxAge: 0,
+    path: "/",
   });
 
-  // Return success message to client
+  // Fire-and-forget backend logout (no need to await)
+  const backendHost = getBackendUrl();
+  if (backendHost) {
+    fetch(`${backendHost}/auth/logout`, {
+      method: "POST",
+      credentials: "include", // if backend needs cookies
+    }).catch((err) => {
+      console.error("Failed to notify backend logout:", err);
+    });
+  }
+
   return NextResponse.json({ message: "Logged out successfully" });
 }
