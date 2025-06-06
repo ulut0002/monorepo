@@ -3,27 +3,19 @@
 
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { useAuthStore } from "../stores/authStore";
 
-export default function LogoutButton({ onLogout }: { onLogout?: () => void }) {
+export default function LogoutButton() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const performLogout = useAuthStore((state) => state.performLogout);
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
+    await performLogout();
 
-      // Notify parent
-      onLogout?.();
-
-      // Navigate away or refresh
-      startTransition(() => {
-        router.push("/login");
-      });
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
+    startTransition(() => {
+      router.push("/login");
+    });
   };
 
   return (
