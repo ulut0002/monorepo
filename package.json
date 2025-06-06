@@ -17,6 +17,7 @@
 		"packages/*"
 	],
 	"devDependencies": {
+		"@types/dotenv": "^8.2.3",
 		"@types/mongoose": "^5.11.97",
 		"prettier": "^3.2.5",
 		"turbo": "^2.4.4",
@@ -32,6 +33,7 @@
 	},
 	"packageManager": "pnpm@10.7.1",
 	"dependencies": {
+		"dotenv": "^16.5.0",
 		"mongoose": "^8.13.2"
 	}
 }
