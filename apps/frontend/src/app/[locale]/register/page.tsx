@@ -1,25 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuthStore } from "apps/frontend/src/stores/authStore";
 
 export default function RegisterPage() {
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const register = useAuthStore((state) => state.register);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (res.ok) {
-      window.location.href = "/dashboard";
+    const success = await register(form.username, form.email, form.password);
+    if (success) {
+      router.replace("/dashboard");
     } else {
       alert("Registration failed");
     }

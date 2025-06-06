@@ -1,21 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuthStore } from "apps/frontend/src/stores/authStore";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
+  const login = useAuthStore((state) => state.login);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (res.ok) {
-      window.location.href = "/dashboard";
+    const success = await login(form.username, form.password);
+    if (success) {
+      router.replace("/dashboard"); // faster than window.location.href
     } else {
       alert("Login failed");
     }

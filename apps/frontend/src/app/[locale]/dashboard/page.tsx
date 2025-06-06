@@ -1,6 +1,5 @@
 // app/dashboard/page.tsx
 
-import LogoutButton from "apps/frontend/src/components/LogoutButton";
 import { getSessionUser } from "../../lib/auth";
 import { redirect } from "next/navigation";
 
