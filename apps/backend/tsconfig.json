@@ -1,14 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "../../",
+    "paths": {
+      "@monorepo/shared": ["packages/shared/dist"],
+      "@monorepo/shared/*": ["packages/shared/dist/*"]
+    },
     "module": "CommonJS",
     "outDir": "dist",
     "rootDir": "src"
   },
   "include": ["src"],
-  "references": [
-    {
-      "path": "../../packages/shared"
-    }
-  ]
+  "references": [{ "path": "../../packages/shared" }]
 }

@@ -1,6 +1,6 @@
 // src/shared/config/env.utils.ts
 
-import { EnvConfig } from "@shared/types/config.types";
+import { EnvConfig } from "../types/config.types";
 import { envConfig } from "./env.config";
 
 /**

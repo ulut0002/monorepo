@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 type AuthStatus = "idle" | "checking" | "authenticated" | "unauthenticated";
-import { IWebNewUserModel } from "@shared/types/user.types";
+import { IWebNewUserModel } from "@monorepo/shared/types/user.types";
 interface AuthState {
   status: AuthStatus;
   isLoggedIn: boolean;

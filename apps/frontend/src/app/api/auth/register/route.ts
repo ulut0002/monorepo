@@ -1,6 +1,6 @@
 // app/api/auth/register/route.ts
 
-import { getBackendUrl } from "@shared/config/env.utils";
+import { getBackendUrl } from "@monorepo/shared/config/env.utils";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 

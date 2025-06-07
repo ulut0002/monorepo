@@ -1,4 +1,4 @@
-import { MessageCodes } from "@shared/constants/message.codes";
+import { MessageCodes } from "@monorepo/shared";
 
 /**
  * Represents a detailed error for a specific field (optional).

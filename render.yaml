@@ -6,9 +6,9 @@ services:
     repo: https://github.com/ulut0002/monorepo
     rootDir: apps/backend
     buildCommand: |
-      pnpm install
-      pnpm --filter @shared... build
-      pnpm build
+      pnpm --filter @monorepo/shared... build
+      pnpm --filter backend... build
+      pnpm --filter backend... start
     startCommand: pnpm start
     autoDeploy: true
     envVars:

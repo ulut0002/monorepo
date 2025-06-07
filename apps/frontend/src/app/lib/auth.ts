@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import { loadEnvConfig } from "@shared/config/env.utils";
+import { loadEnvConfig } from "@monorepo/shared/config/env.utils";
 
 /**
  * Extracts and verifies the JWT token stored in the user's cookies.

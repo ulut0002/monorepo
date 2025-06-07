@@ -9,7 +9,7 @@ import { configureJwtStrategy } from "./controllers";
 import { authRouter, rootRouter } from "./router";
 import { ensureBody } from "./middleware";
 import mongoose from "mongoose";
-import { getBackendUrl, loadEnvConfig } from "@shared/config/env.utils";
+import { getBackendUrl, loadEnvConfig } from "@monorepo/shared";
 
 // Load environment variables from .env files and generate usable config values
 const config = loadEnvConfig();

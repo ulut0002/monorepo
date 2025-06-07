@@ -2,7 +2,7 @@
 
 import dotenv from "dotenv";
 import path from "path";
-import { EnvConfig } from "@shared/types/config.types";
+import { EnvConfig } from "../types/config.types";
 
 // This configuration file loads environment variables manually from .env files.
 // It supports both a fallback .env and an environment-specific .env.{env} file.

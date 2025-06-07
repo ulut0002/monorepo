@@ -1,4 +1,4 @@
-import { getBackendUrl } from "@shared/config/env.utils";
+import { getBackendUrl } from "@monorepo/shared/config/env.utils";
 import { NextRequest, NextResponse } from "next/server";
 
 // This route handles login requests from the frontend to the backend.

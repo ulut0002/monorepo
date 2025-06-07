@@ -1,5 +1,4 @@
 // Load environment-specific configuration values (e.g., JWT secret).
-import { envConfig } from "@shared/config/env.config";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
@@ -20,7 +19,7 @@ import {
   createErrorResponse,
   createValidationErrorCollector,
 } from "../lib/error";
-import { MessageCodes, MessageTexts } from "@shared/constants";
+import { envConfig, MessageCodes, MessageTexts } from "@monorepo/shared";
 
 /**
  * Configures Passport.js with JWT strategy using a cookie-based token.

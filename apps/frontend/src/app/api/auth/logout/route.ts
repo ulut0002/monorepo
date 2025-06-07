@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getBackendUrl } from "@shared/config/env.utils";
+import { getBackendUrl } from "@monorepo/shared/config/env.utils";
 
 // This route clears the token cookie and optionally notifies the backend logout endpoint.
 

@@ -1,5 +1,4 @@
-import UserModel from "@shared/models/user.model";
-import { INewUserModel } from "@shared/types/user.types";
+import { INewUserModel, UserModel } from "@monorepo/shared";
 
 /**
  * Finds a user document by their username.

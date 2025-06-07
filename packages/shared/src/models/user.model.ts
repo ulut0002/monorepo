@@ -36,4 +36,4 @@ const userSchema = new Schema<IUserDb>(
 
 // Create and export the Mongoose model
 const UserModel = model<IUserDb>("User", userSchema);
-export default UserModel;
+export { UserModel };

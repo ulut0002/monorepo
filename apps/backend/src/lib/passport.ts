@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as JwtStrategy, StrategyOptions } from "passport-jwt";
-import UserModel from "@shared/models/user.model";
 import { Request } from "express";
+import { UserModel } from "@monorepo/shared";
 
 // Load the JWT secret key from environment variables.
 // Defaults to a hardcoded fallback in dev, but should be set in .env for production.

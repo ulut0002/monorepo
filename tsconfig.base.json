@@ -1,10 +1,5 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@monorepo/shared/*": ["packages/shared/src/*"]
-    },
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -16,11 +11,5 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true
-  },
-  "include": ["apps", "packages"],
-  "references": [
-    { "path": "packages/shared" },
-    { "path": "apps/frontend" },
-    { "path": "apps/backend" }
-  ]
+  }
 }

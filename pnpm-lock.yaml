@@ -33,6 +33,9 @@ importers:
 
   apps/backend:
     dependencies:
+      '@monorepo/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       bcrypt:
         specifier: ^6.0.0
         version: 6.0.0
@@ -185,6 +188,8 @@ importers:
       typescript:
         specifier: ^5
         version: 5.8.2
+
+  packages/shared: {}
 
 packages:
 
