@@ -10,3 +10,7 @@ services:
       pnpm --filter backend... build
     startCommand: pnpm start
     autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
+    healthCheckPath: /healthz
