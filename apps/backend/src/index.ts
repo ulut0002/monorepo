@@ -16,7 +16,7 @@ const config = loadEnvConfig();
 const backendUrl = getBackendUrl();
 
 // Extract and validate required port
-const PORT = config.BACKEND_PORT;
+const PORT = process.env.PORT || config.BACKEND_PORT || "3000";
 if (!PORT || PORT === "") {
   throw new Error("BACKEND_PORT is not defined in the environment variables.");
 }
