@@ -78,6 +78,9 @@ server.listen(PORT, "0.0.0.0", () => {
   console.info(`Backend running at http://0.0.0.0:${PORT}`);
 });
 
+app.get("/healthz", (_, res) => {
+  res.status(200).send("OK");
+});
 // Define API routes
 app.use("/", rootRouter); // e.g., GET / → API info
 app.use("/auth", authRouter); // e.g., POST /auth/login, /auth/register
