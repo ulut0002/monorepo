@@ -8,9 +8,5 @@ services:
     buildCommand: |
       pnpm --filter @monorepo/shared... build
       pnpm --filter backend... build
-      pnpm --filter backend... start
     startCommand: pnpm start
     autoDeploy: true
-    envVars:
-      - key: PORT
-        value: 10000
