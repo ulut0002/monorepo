@@ -5,7 +5,10 @@ services:
     runtime: node
     repo: https://github.com/ulut0002/monorepo
     rootDir: apps/backend
-    buildCommand: pnpm install && pnpm build
+    buildCommand: |
+      pnpm install
+      pnpm --filter @shared... build
+      pnpm build
     startCommand: pnpm start
     autoDeploy: true
     envVars:
