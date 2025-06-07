@@ -31,4 +31,6 @@ const envConfig: EnvConfig = {
   BACKEND_JWT_SECRET_KEY: process.env.BACKEND_JWT_SECRET_KEY || "",
 };
 
+export const __forceEmit = true;
+
 export { envConfig };

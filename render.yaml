@@ -6,13 +6,11 @@ services:
     repo: https://github.com/ulut0002/monorepo
     rootDir: apps/backend
     buildCommand: |
+      pnpm install
       pnpm --filter @monorepo/shared... build
       pnpm --filter backend... build
     startCommand: pnpm start
     autoDeploy: true
     envVars:
-      - key: NODE_OPTIONS
-        value: -r tsconfig-paths/register
       - key: PORT
         value: 10000
-    healthCheckPath: /healthz
