@@ -10,4 +10,4 @@ services:
     autoDeploy: true
     envVars:
       - key: PORT
-        value: 3000
+        value: 10000
