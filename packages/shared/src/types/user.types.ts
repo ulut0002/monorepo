@@ -1,5 +1,11 @@
 import { Document } from "mongoose";
 
+interface IWebNewUserModel {
+  username?: string; // Optional for OAuth users
+  email?: string; // Optional for OAuth users
+  password: string; // Required for local auth, ignored for OAuth
+}
+
 /**
  * This interface defines the shape of a user object when being created (e.g., during registration).
  * Fields like OAuth IDs are optional, as users may sign up through different providers.
@@ -24,4 +30,4 @@ interface IUserDb extends INewUserModel, Document {
   lastLogin?: Date; // Timestamp of last successful login
 }
 
-export { INewUserModel, IUserDb };
+export { IWebNewUserModel, INewUserModel, IUserDb };

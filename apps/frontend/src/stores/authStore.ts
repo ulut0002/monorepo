@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 type AuthStatus = "idle" | "checking" | "authenticated" | "unauthenticated";
-
+import { IWebNewUserModel } from "@shared/types/user.types";
 interface AuthState {
   status: AuthStatus;
   isLoggedIn: boolean;
-  user: any | null;
+  user: IWebNewUserModel | null;
   checkAuth: () => Promise<void>;
   performLogout: () => void;
   login: (username: string, password: string) => Promise<boolean>;
