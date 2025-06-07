@@ -11,6 +11,8 @@ services:
     startCommand: pnpm start
     autoDeploy: true
     envVars:
+      - key: NODE_OPTIONS
+        value: -r tsconfig-paths/register
       - key: PORT
         value: 10000
     healthCheckPath: /healthz
