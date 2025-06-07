@@ -12,15 +12,9 @@
     "resolveJsonModule": true,
     "composite": true,
     "declaration": true,
-    "declarationMap": true,
-    "paths": {
-      "@shared/*": ["packages/shared/src/*"]
-    }
+    "declarationMap": true
   },
-  "files": [],
-  "dependencies": {
-    "@shared": "*"
-  },
+  "include": ["apps", "packages"],
   "references": [
     { "path": "packages/shared" },
     { "path": "apps/frontend" },
