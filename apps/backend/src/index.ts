@@ -16,9 +16,11 @@ const config = loadEnvConfig();
 const backendUrl = getBackendUrl();
 
 // Extract and validate required port
-const PORT = process.env.PORT || config.BACKEND_PORT || "3000";
+const PORT = config.BACKEND_PORT || process.env.PORT || 3000;
 if (!PORT || PORT === "") {
   throw new Error("BACKEND_PORT is not defined in the environment variables.");
+} else {
+  console.info(`Using port ${PORT} for backend`);
 }
 
 // Configure JWT strategy for passport (reads JWT from cookies)
