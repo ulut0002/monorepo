@@ -15,6 +15,9 @@ import { getBackendUrl, loadEnvConfig } from "@monorepo/shared";
 const config = loadEnvConfig();
 const backendUrl = getBackendUrl();
 
+console.log("Starting backend app...");
+console.log("PORT from env:", process.env.PORT);
+
 // Extract and validate required port
 const PORT = config.BACKEND_PORT || process.env.PORT || 3000;
 if (!PORT || PORT === "") {
