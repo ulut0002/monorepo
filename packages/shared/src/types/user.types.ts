@@ -30,4 +30,4 @@ interface IUserDb extends INewUserModel, Document {
   lastLogin?: Date; // Timestamp of last successful login
 }
 
-export { IWebNewUserModel, INewUserModel, IUserDb };
+export type { IWebNewUserModel, INewUserModel, IUserDb };

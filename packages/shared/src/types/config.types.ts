@@ -44,7 +44,7 @@ type UsernameValidationConfig = {
   noConsecutiveSymbols?: boolean; // Disallow repeating special characters
 };
 
-export {
+export type {
   EnvConfig,
   NormalizeOptions,
   PasswordValidationConfig,

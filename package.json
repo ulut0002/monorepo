@@ -1,39 +1,41 @@
 {
-	"name": "turbo",
-	"private": true,
-	"version": "1.0.0",
-	"description": "",
-	"scripts": {
-		"dev:frontend": "turbo run dev --filter=frontend",
-		"dev:backend": "turbo run dev --filter=backend",
-		"dev": "turbo run dev",
-		"build": "turbo run build",
-		"lint": "turbo run lint",
-		"check-types": "turbo run check-types",
-		"format": "prettier --write \"**/*.{ts,tsx,md}\""
-	},
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
-	"devDependencies": {
-		"@types/dotenv": "^8.2.3",
-		"@types/mongoose": "^5.11.97",
-		"prettier": "^3.2.5",
-		"turbo": "^2.4.4",
-		"typescript": "^5.3.3"
-	},
-	"volta": {
-		"node": "20.19.1",
-		"pnpm": "10.7.1"
-	},
-	"engines": {
-		"node": ">=20.19.1",
-		"pnpm": ">=10.7.1"
-	},
-	"packageManager": "pnpm@10.7.1",
-	"dependencies": {
-		"dotenv": "^16.5.0",
-		"mongoose": "^8.13.2"
-	}
+  "name": "turbo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev:frontend": "turbo run dev --filter=frontend",
+    "dev:backend": "turbo run dev --filter=backend",
+    "dev": "turbo run dev",
+    "build:frontend": "turbo run build --filter=frontend",
+    "build:backend": "turbo run build --filter=backend",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/mongoose": "^5.11.97",
+    "prettier": "^3.2.5",
+    "turbo": "^2.4.4",
+    "typescript": "^5.3.3"
+  },
+  "volta": {
+    "node": "20.19.1",
+    "pnpm": "10.7.1"
+  },
+  "engines": {
+    "node": ">=20.19.1",
+    "pnpm": ">=10.7.1"
+  },
+  "packageManager": "pnpm@10.7.1",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "mongoose": "^8.13.2"
+  }
 }
