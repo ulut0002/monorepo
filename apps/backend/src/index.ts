@@ -19,8 +19,8 @@ console.log("Starting backend app...");
 console.log("PORT from env:", process.env.PORT);
 
 // Extract and validate required port
-const PORT = config.BACKEND_PORT || process.env.PORT || 3000;
-if (!PORT || PORT === "") {
+const PORT = Number(config.BACKEND_PORT || process.env.PORT || 3000);
+if (!PORT) {
   throw new Error("BACKEND_PORT is not defined in the environment variables.");
 } else {
   console.info(`Using port ${PORT} for backend`);
@@ -74,8 +74,8 @@ if (config.BACKEND_MONGODB_URI) {
 // Start the HTTP server
 const server = http.createServer(app);
 
-server.listen(PORT, () => {
-  console.info(`Backend running at ${backendUrl}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.info(`Backend running at http://0.0.0.0:${PORT}`);
 });
 
 // Define API routes
