@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --require tsconfig-paths/register --project tsconfig.json src/index.ts",
     "build": "tsc -b tsconfig.build.json",
-    "start": "node --enable-source-maps --import tsconfig-paths/register dist/index.js"
+    "start": "node --enable-source-maps dist/index.js"
   },
   "keywords": [],
   "author": "",
